@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "Tiempo juntos",
+    "slug": "tiempo-juntos",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "bundleIdentifier": "com.osos.tiempojuntos",
+      "supportsTablet": false,
+      "infoPlist": {
+        "UIBackgroundModes": ["location"],
+        "NSLocationWhenInUseUsageDescription": "Tiempo juntos usa tu ubicación para saber cuánto tiempo estáis juntos.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Tiempo juntos usa tu ubicación, también con el móvil bloqueado, para saber cuánto tiempo estáis juntos.",
+        "NSLocationAlwaysUsageDescription": "Tiempo juntos usa tu ubicación, también con el móvil bloqueado, para saber cuánto tiempo estáis juntos."
+      }
+    },
+    "android": {
+      "package": "com.osos.tiempojuntos",
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION",
+        "FOREGROUND_SERVICE",
+        "FOREGROUND_SERVICE_LOCATION"
+      ]
+    },
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Tiempo juntos usa tu ubicación, también con el móvil bloqueado, para saber cuánto tiempo estáis juntos.",
+          "isIosBackgroundLocationEnabled": true,
+          "isAndroidBackgroundLocationEnabled": true,
+          "isAndroidForegroundServiceEnabled": true
+        }
+      ]
+    ]
+  }
+}
