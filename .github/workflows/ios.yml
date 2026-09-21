@@ -1,0 +1,55 @@
+name: Compilar iPhone (IPA sin firmar)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Instalar dependencias
+        run: npm install --no-audit --no-fund
+
+      - name: Generar el proyecto nativo de iOS
+        run: npx expo prebuild --platform ios
+        env:
+          CI: "1"
+
+      - name: Compilar sin firmar
+        run: |
+          set -eo pipefail
+          cd ios
+          WORKSPACE=$(ls -d *.xcworkspace | head -n 1)
+          SCHEME="${WORKSPACE%.xcworkspace}"
+          echo "Espacio de trabajo: $WORKSPACE | esquema: $SCHEME"
+          xcodebuild \
+            -workspace "$WORKSPACE" \
+            -scheme "$SCHEME" \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            build
+
+      - name: Empaquetar el IPA
+        run: |
+          APP=$(find ios/build/Build/Products/Release-iphoneos -maxdepth 1 -name "*.app" | head -n 1)
+          echo "Aplicación: $APP"
+          mkdir -p Payload
+          cp -R "$APP" Payload/
+          zip -qry TiempoJuntos.ipa Payload
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: TiempoJuntos-iPhone-IPA
+          path: TiempoJuntos.ipa
