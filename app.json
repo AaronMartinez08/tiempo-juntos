@@ -9,7 +9,9 @@
       "bundleIdentifier": "com.osos.tiempojuntos",
       "supportsTablet": false,
       "infoPlist": {
-        "UIBackgroundModes": ["location"],
+        "UIBackgroundModes": [
+          "location"
+        ],
         "NSLocationWhenInUseUsageDescription": "Tiempo juntos usa tu ubicación para saber cuánto tiempo estáis juntos.",
         "NSLocationAlwaysAndWhenInUseUsageDescription": "Tiempo juntos usa tu ubicación, también con el móvil bloqueado, para saber cuánto tiempo estáis juntos.",
         "NSLocationAlwaysUsageDescription": "Tiempo juntos usa tu ubicación, también con el móvil bloqueado, para saber cuánto tiempo estáis juntos."
@@ -22,7 +24,9 @@
         "ACCESS_FINE_LOCATION",
         "ACCESS_BACKGROUND_LOCATION",
         "FOREGROUND_SERVICE",
-        "FOREGROUND_SERVICE_LOCATION"
+        "FOREGROUND_SERVICE_LOCATION",
+        "POST_NOTIFICATIONS",
+        "RECEIVE_BOOT_COMPLETED"
       ]
     },
     "plugins": [
@@ -34,7 +38,8 @@
           "isAndroidBackgroundLocationEnabled": true,
           "isAndroidForegroundServiceEnabled": true
         }
-      ]
+      ],
+      "./withDebugKeystore.js"
     ]
   }
 }
